@@ -17,6 +17,8 @@
                         <Menu text="Mantenimiento">
                             <items>
                                 <MenuItem fx:id="mnuProductos" onAction="#abrirProductos" text="Productos" />
+                                <MenuItem fx:id="mnuCategorias" onAction="#abrirCategorias" text="Categorías" />
+                                <MenuItem fx:id="mnuCargos" onAction="#abrirCargos" text="Cargos" />
                             </items>
                         </Menu>
                     </menus>
@@ -24,6 +26,9 @@
                 <ToolBar>
                     <items>
                         <Button fx:id="btnProductos" onAction="#abrirProductos" text="Productos" />
+                        <Button fx:id="btnCategorias" onAction="#abrirCategorias" text="Categorías" />
+                        <Button fx:id="btnCargos" onAction="#abrirCargos" text="Cargos" />
+                        <Separator />
                         <Button fx:id="btnSalir" onAction="#salir" text="Salir" />
                     </items>
                 </ToolBar>

@@ -4,6 +4,11 @@ module ni.edu.uam.facapp {
     requires static lombok;
 
 
+    exports ni.edu.uam.facapp.application;
+    opens ni.edu.uam.facapp.application to javafx.graphics, javafx.fxml;
+
+
+    exports ni.edu.uam.facapp.model;
     opens ni.edu.uam.facapp.controller to javafx.fxml;
-    exports ni.edu.uam.facapp;
+    opens ni.edu.uam.facapp.model to javafx.base;
 }
