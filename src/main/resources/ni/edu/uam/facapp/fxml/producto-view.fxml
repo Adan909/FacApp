@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ni.edu.uam.facapp.controller.ProductoController">
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+    </padding>
+    <top>
+        <GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="80.0" />
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints hgrow="NEVER" minWidth="80.0" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            <children>
+                <Label text="Código:" />
+                <TextField fx:id="txtCodigo" GridPane.columnIndex="1" />
 
-</AnchorPane>
+                <Label text="Nombre:" GridPane.rowIndex="1" />
+                <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Categoría:" GridPane.columnIndex="2" />
+                <ComboBox fx:id="cmbCategoria" prefWidth="200.0" GridPane.columnIndex="3" />
+
+                <Label text="Precio:" GridPane.rowIndex="2" />
+                <TextField fx:id="txtPrecio" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Existencia:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <TextField fx:id="txtExistencia" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                <CheckBox fx:id="chkActivo" text="Activo" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+
+                <Button fx:id="btnImagen" onAction="#seleccionarImagen" text="Buscar Imagen" GridPane.rowIndex="3" />
+                <ImageView fx:id="imgProducto" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </children>
+        </GridPane>
+    </top>
+    <center>
+        <TableView fx:id="tblProductos" prefHeight="250.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="colCodigo" prefWidth="100.0" text="Código" />
+                <TableColumn fx:id="colNombre" prefWidth="200.0" text="Nombre" />
+                <TableColumn fx:id="colCategoria" prefWidth="120.0" text="Categoría" />
+                <TableColumn fx:id="colPrecio" prefWidth="100.0" text="Precio" />
+                <TableColumn fx:id="colExistencia" prefWidth="100.0" text="Existencia" />
+                <TableColumn fx:id="colActivo" prefWidth="80.0" text="Activo" />
+            </columns>
+            <BorderPane.margin>
+                <Insets bottom="10.0" top="10.0" />
+            </BorderPane.margin>
+        </TableView>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="btnGuardar" onAction="#guardar" text="Guardar" />
+                <Button fx:id="btnCerrar" onAction="#cerrar" text="Cerrar" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

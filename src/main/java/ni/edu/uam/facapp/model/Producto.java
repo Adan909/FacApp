@@ -1,9 +1,6 @@
 package ni.edu.uam.facapp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import java.math.BigDecimal;
 
 @Data
@@ -11,17 +8,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class Producto {
     private Integer id;
-
+    private String codigo;
     private String nombre;
-
     private Categoria categoria;
-
     private BigDecimal precioVenta;
-
-    private int existencia;
-
+    private Integer existencia;
     private String rutaImagen;
-
     private boolean activo;
-
 }

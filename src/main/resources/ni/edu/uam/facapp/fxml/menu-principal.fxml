@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ni.edu.uam.facapp.controller.MenuPrincipalController">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu text="Archivos">
+                            <items>
+                                <MenuItem fx:id="mnuSalir" onAction="#salir" text="Salir" />
+                            </items>
+                        </Menu>
+                        <Menu text="Mantenimiento">
+                            <items>
+                                <MenuItem fx:id="mnuProductos" onAction="#abrirProductos" text="Productos" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <ToolBar>
+                    <items>
+                        <Button fx:id="btnProductos" onAction="#abrirProductos" text="Productos" />
+                        <Button fx:id="btnSalir" onAction="#salir" text="Salir" />
+                    </items>
+                </ToolBar>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <Label text="Sistema de Facturación" style="-fx-font-size: 24px;" BorderPane.alignment="CENTER" />
+    </center>
+</BorderPane>
