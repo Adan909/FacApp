@@ -11,6 +11,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ni.edu.uam.facapp.model.Categoria;
 import ni.edu.uam.facapp.model.Producto;
+import ni.edu.uam.facapp.util.CategoriaRepository;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -34,14 +35,12 @@ public class ProductoController {
 
     @FXML
     private void initialize() {
-        cmbCategoria.setItems(FXCollections.observableArrayList(
-                new Categoria(1, "Alimentos", true),
-                new Categoria(2, "Bebidas", true),
-                new Categoria(3, "Limpieza", true)
-        ));
+        // Cargar las categorías directamente desde el repositorio compartido
+        cmbCategoria.setItems(CategoriaRepository.getCategorias());
         tblProductos.setItems(productos);
         chkActivo.setSelected(true);
 
+        // Mapeo de columnas con las propiedades de Producto
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
