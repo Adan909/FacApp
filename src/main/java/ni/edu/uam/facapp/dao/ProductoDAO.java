@@ -11,7 +11,19 @@ import java.util.List;
 public class ProductoDAO {
 
     public void insertar(Producto producto) throws SQLException {
-        String sql = "INSERT INTO public.producto(codigo, nombre, categoria_id, precio_venta, existencia, ruta_imagen, activo, id) VALUES (?, ?, ?, ?, ?, ?, ?) ";
+        String sql = """
+            INSERT INTO producto
+            (
+                codigo,
+                nombre,
+                categoria_id,
+                precio_venta,
+                existencia,
+                ruta_imagen,
+                activo
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """;
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -35,7 +47,17 @@ public class ProductoDAO {
     }
 
     public void actualizar(Producto producto) throws SQLException {
-        String sql = "UPDATE public.producto SET codigo = ?, nombre = ?, categoria_id = ?, precio_venta = ?, existencia = ?, ruta_imagen = ?, activo = ? WHERE id = ?;";
+        String sql = """
+            UPDATE producto
+            SET codigo = ?,
+                nombre = ?,
+                categoria_id = ?,
+                precio_venta = ?,
+                existencia = ?,
+                ruta_imagen = ?,
+                activo = ?
+            WHERE id = ?
+            """;
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -54,7 +76,7 @@ public class ProductoDAO {
     }
 
     public void eliminar(int id) throws SQLException {
-        String sql = "DELETE FROM public.producto WHERE id = ?";
+        String sql = "DELETE FROM producto WHERE id = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -105,7 +127,7 @@ public class ProductoDAO {
         String sql = """
             SELECT p.id, p.codigo, p.nombre, p.precio_venta, p.existencia, p.ruta_imagen, p.activo,
                    c.id AS categoria_id, c.nombre AS categoria_nombre, c.activa AS categoria_activa
-            FROM public.producto p
+            FROM producto p
             INNER JOIN categoria c ON p.categoria_id = c.id
             ORDER BY p.nombre
             """;
