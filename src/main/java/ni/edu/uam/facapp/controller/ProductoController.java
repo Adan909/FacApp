@@ -9,12 +9,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ni.edu.uam.facapp.dao.CategoriaDAO;
+import ni.edu.uam.facapp.dao.ProductoDAO;
 import ni.edu.uam.facapp.model.Categoria;
 import ni.edu.uam.facapp.model.Producto;
-import ni.edu.uam.facapp.util.CategoriaRepository;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 public class ProductoController {
     @FXML private TextField txtCodigo, txtNombre, txtPrecio, txtExistencia;
@@ -30,14 +32,16 @@ public class ProductoController {
     @FXML private TableColumn<Producto, Integer> colExistencia;
     @FXML private TableColumn<Producto, Boolean> colActivo;
 
+    private final CategoriaDAO categoriaDAO = new CategoriaDAO();
+    private final ProductoDAO productoDAO = new ProductoDAO();
     private final ObservableList<Producto> productos = FXCollections.observableArrayList();
+    private final ObservableList<Categoria> categorias = FXCollections.observableArrayList();
     private String rutaImagen;
 
     @FXML
     private void initialize() {
-        // Cargar las categorías directamente desde el repositorio compartido
-        cmbCategoria.setItems(CategoriaRepository.getCategorias());
         tblProductos.setItems(productos);
+        cmbCategoria.setItems(categorias);
         chkActivo.setSelected(true);
 
         // Mapeo de columnas con las propiedades de Producto
@@ -47,6 +51,25 @@ public class ProductoController {
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
         colExistencia.setCellValueFactory(new PropertyValueFactory<>("existencia"));
         colActivo.setCellValueFactory(new PropertyValueFactory<>("activo"));
+
+        cargarCategorias();
+        cargarProductos();
+    }
+
+    private void cargarCategorias() {
+        try {
+            categorias.setAll(categoriaDAO.listar());
+        } catch (SQLException e) {
+            mensaje(Alert.AlertType.ERROR, "Error al cargar categorías: " + e.getMessage());
+        }
+    }
+
+    private void cargarProductos() {
+        try {
+            productos.setAll(productoDAO.listar());
+        } catch (SQLException e) {
+            mensaje(Alert.AlertType.ERROR, "Error al cargar productos: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -77,13 +100,17 @@ public class ProductoController {
                         "Precio mayor que cero y existencia no negativa.");
                 return;
             }
-            productos.add(new Producto(null, txtCodigo.getText().trim(),
+            Producto producto = new Producto(null, txtCodigo.getText().trim(),
                     txtNombre.getText().trim(), cmbCategoria.getValue(), precio,
-                    existencia, rutaImagen, chkActivo.isSelected()));
+                    existencia, rutaImagen, chkActivo.isSelected());
+            productoDAO.insertar(producto);
             mensaje(Alert.AlertType.INFORMATION, "Producto agregado correctamente.");
             limpiar();
+            cargarProductos();
         } catch (NumberFormatException e) {
             mensaje(Alert.AlertType.ERROR, "Precio o existencia no válidos.");
+        } catch (SQLException e) {
+            mensaje(Alert.AlertType.ERROR, "Error al guardar el producto en la base de datos: " + e.getMessage());
         }
     }
 
