@@ -2,6 +2,7 @@ module ni.edu.uam.facapp {
     requires javafx.controls;
     requires javafx.fxml;
     requires static lombok;
+    requires java.sql;
 
 
     exports ni.edu.uam.facapp.application;
@@ -9,6 +10,8 @@ module ni.edu.uam.facapp {
 
 
     exports ni.edu.uam.facapp.model;
+    exports ni.edu.uam.facapp.dao;
+    exports ni.edu.uam.facapp.database;
     opens ni.edu.uam.facapp.controller to javafx.fxml;
     opens ni.edu.uam.facapp.model to javafx.base;
 }
